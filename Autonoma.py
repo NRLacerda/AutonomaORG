@@ -9,6 +9,8 @@ from urllib.parse import urlparse
 from selenium.common.exceptions import NoSuchElementException
 import time
 import re
+import getpass
+
 servico = Service(ChromeDriverManager().install())
 navegador = webdriver.Chrome(service=servico)
 
@@ -86,15 +88,14 @@ def Login():
         password_element = navegador.find_element(By.ID, "password")
         password_element.clear()
         print("Agora, insira sua senha:")
-        senha = input()
-        password_element.send_keys(str(senha))
+        password = getpass.getpass()
+        password_element.send_keys(str(password))
         submit_button = navegador.find_element(By.CLASS_NAME, "js-sign-in-button")  # Use a reliable identifier
         submit_button.click()
 def CheckDotFolder(check):
     global index
     if check == 1: 
         index+=1
-#    index=0
     while True:
         xpath = "//*[@id='folder-row-" + str(index) + "']/td[2]/div/div/h3/div/a"
         
